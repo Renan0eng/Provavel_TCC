@@ -2,11 +2,11 @@
 
 ## Primeiro commiit
 
-###Inicio do provavel futuro TCC
-##Criacao esqueleto do backend
-##Criacao esqueleto das pastas do frontend
+###### Inicio do provavel futuro TCC
+###### Criacao esqueleto do backend
+###### Criacao esqueleto das pastas do frontend
 
-###Usando o phpmyadmin para criar o banco de dados
+###### Usando o phpmyadmin para criar o banco de dados
 
 ## Oque eu estou planejando
 
