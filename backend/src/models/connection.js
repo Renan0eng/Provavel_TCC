@@ -1,8 +1,10 @@
-const mysql = require('mysql2/promise');
+const myaql = require('mysql2/promise');
 
-const connection = mysql.createPool({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
+const connection = myaql.createPool({
+  host: '127.0.0.1',
+  user: 'root',
+  password: '12345678',
+  database: 'menu-fit',
 });
+
+module.exports = connection;
