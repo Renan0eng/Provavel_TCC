@@ -13,7 +13,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16.19.0'
-      - name: Build web-app
+      - name: cd .\frontend\nextjs-blog\
+      - name: next build
         run: |
           npm ci
           npm run build
