@@ -1,200 +1,190 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import CssBaseline from '@mui/material/CssBaseline';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+  }),
+);
 
 export default function Home() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <>
-      <Head>
-        <title>Renan Nardi</title>
-        <meta name="description" content="Renan Nardi" />
-        <link rel="icon" href="https://renan0eng.github.io/Site-Analise-De-Solo/img/favicon.ico" />
-      </Head>
-      <header>
-        <h1>Bem-vindo a minha página pessoal</h1>
-
-        {/* icom seta para baixo  */}
-
-        <img src="https://renan0eng.github.io/Site-Analise-De-Solo/img/Renan.jpeg" />
-        <h1>Renan Nardi</h1>
-
-      </header>
-      <main>
-        <span>
-          <section class="fade-in" id="vs"></section>
-          <section id="habilidades">
-            <h2>Habilidades</h2>
-            <ul>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JavaScript</li>
-              <li>PHP</li>
-            </ul>
-          </section>
-        </span>
-        <span>
-          <section id="sobre-mim">
-            <h2>Sobre mim</h2>
-            <p>Olá, eu sou fulano e sou apaixonado por tecnologia e programação. Eu tenho X anos de experiência em Y e sou especialista em Z. Além disso, gosto de passar meu tempo livre praticando esportes e viajando.</p>
-          </section>
-          <section id="vs"></section>
-        </span>
-        <span>
-          <section id="vs"></section>
-          <section id="projetos">
-            <h2>Projetos</h2>
-            <ul>
-              <li><a href='https://github.com/Renan0eng/Site-Analise-De-Solo'></a></li>
-              <li>Projeto 2</li>
-              <li>Projeto 3</li>
-            </ul>
-          </section>
-        </span>
-        <span>
-          <section id="contato">
-            <h2>Contato</h2>
-            <p>Você pode entrar em contato comigo através do email <a href="mailto:fulano@email.com">fulano@email.com</a> ou pelo telefone (xx) xxxx-xxxx.</p>
-          </section>
-          <section id="vs"></section>
-        </span>
-      </main>
-      <footer>
-        <p>Copyright &copy; 2023 Página Pessoal </p><p id='RenanNardi'>Renan Nardi</p>
-      </footer>
-
-      <style jsx>{`
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-
-  header {
-    background-color: #000;
-    width: 100%;
-    height: 2000px;
-    text-align: center;
-  }
-
-  header h1 {
-    padding-top: 40px;
-    color: #00f;
-    margin: 0;
-    font-size: 36px;
-    text-shadow: 0 0 30px #0000ff;
-  }
-
-  img {
-    border-radius: 50%;
-    border: 10px solid #0000ff;
-    padding: 10px;
-    width: 300px;
-    height: 300px;
-    animation: neon-border 1s ease-in-out infinite alternate;
-    margin-top: 1000px;
-  }
-
-  @keyframes neon-border {
-    to {
-      border-color: #0000ff;
-      box-shadow: 0 0 10px #0000ff, 0 0 20px #0000ff, 0 0 30px #0000ff
-    }
-  }
-
-  .fade-in {
-    animation: fade-in-right 1s ease-in-out forwards;
-    opacity: 0;
-    transform: translateX(50px);
-  }
-
-  @keyframes fade-in-right {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  main {
-    padding: 20px;
-    background-color: #000;
-  }
-
-  section {
-    margin-bottom: 20px;
-    width: 50%;
-    background-color: #fff;
-    margin: 10px;
-    padding: 20px;
-    border: 5px solid #0000ff;
-    border-radius: 70px 0px 70px 0px;
-    animation: neon-border 1s ease-in-out infinite alternate;
-  }
-
-  section p {
-    color: #000;
-  }
-
-  section h2 {
-    color: #0078d4;
-    font-size: 24px;
-    margin: 0;
-  }
-  span section li {
-    margin: 0px;
-    color: #0078d4;
-    font-size: 20px;
-    align-self: center;
-  }
-
-  #vs {
-    border: 0 ;
-    animation: none;
-    background-color: #000;
-  }
-
-  span {animation: fade-in-right 1s ease-in-out forwards;
-    opacity: 0;
-    transform: translateX(400px);
-    margin-bottom: 200px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  footer {
-    background-color: #111;
-    padding: 10px;
-    text-align: center;
-    flex-direction: row;
-  }
-
-  footer p {
-    color: #ccc;
-    font-size: 14px;
-    margin: 0;
-  }
-
-  #RenanNardi {
-    color: #0078d4;
-    font-size: 14px;
-    margin: 0;
-  }
-`}</style>
-
-
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </>
-  )
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Controle 
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <Typography variant="h6" noWrap component="div">
+            Menu lateral
+          </Typography>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+              <ListItem key={text} disablePadding sx={{ display: 'block' , mardin: 5 }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+       
+      </Box>
+    </Box>
+  );
 }
